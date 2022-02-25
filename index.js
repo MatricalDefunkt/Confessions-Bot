@@ -1,28 +1,6 @@
 const { Client, Intents, Collection } = require('discord.js');
 const { token, airtable_API } = require('./config.json');
 const fs = require('fs');
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: `${airtable_API}`}).base('appZ1npMgruWsfhgi');
-var IDs = []
-
-/**
-base('Table 1').select({
-    maxRecords: 3,
-    view: "Grid view"
-}).eachPage(function page(records, fetchNextPage) {
-    records.forEach(function(record) {
-		let UID = record.get('UsrID');
-		let MID = record.get('MsgID');
-        console.log('Retrieved', UID, MID);
-		this.IDs = IDs.push({uid: `${UID}`, mid: `${MID}`})
-		console.log(IDs)
-    });
-    fetchNextPage();
-
-}, function done(err) {
-    if (err) { console.error(err); return; }
-});
-*/
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
