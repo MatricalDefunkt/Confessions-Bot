@@ -5,6 +5,7 @@ var Airtable = require('airtable');
 var base = new Airtable({apiKey: `${airtable_API}`}).base('appZ1npMgruWsfhgi');
 var IDs = []
 
+/**
 base('Table 1').select({
     maxRecords: 3,
     view: "Grid view"
@@ -21,7 +22,7 @@ base('Table 1').select({
 }, function done(err) {
     if (err) { console.error(err); return; }
 });
-
+*/
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
