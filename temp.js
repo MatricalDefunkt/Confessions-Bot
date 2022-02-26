@@ -1,29 +1,17 @@
-base('Table 1').select({
-    maxRecords: 3,
-    view: "Grid view"
-}).eachPage(function page(records, fetchNextPage) {
-    records.forEach(function(record) {
-		let UID = record.get('UsrID');
-		let MID = record.get('MsgID');
-        console.log('Retrieved', UID, MID);
-		this.IDs = IDs.push({uid: `${UID}`, mid: `${MID}`})
-		console.log(IDs)
-    });
-    fetchNextPage();
+wait(1000);
 
-}, function done(err) {
-    if (err) { console.error(err); return; }
-});
+			console.log(`here3`)
+			console.log(`here4`)
 
-base('Table 1').select({
-    maxRecords: 3,
-    view: "Grid view"
-}).eachPage(function page(records, fetchNextPage) {
-    records.forEach(function(record) {
-        console.log('Retrieved', record.get('UsrID'), record.get('MsgID'));
-    });
-    fetchNextPage();
+			for (let u = 0; u < IDs.length; u++) {
+				const uid = IDs[u].uid;
+				const mid = IDs[u].mid;
+				embed = new MessageEmbed()
+				console.log(`inloop`)
+				embed.setDescription(
+				`UID: ${uid}
+				MID: ${mid}`
+				);
 
-}, function done(err) {
-    if (err) { console.error(err); return; }
-});
+				interaction.channel.send({embeds: [embed]});
+			};
