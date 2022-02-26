@@ -1,10 +1,14 @@
 const { Client, Intents, Collection } = require('discord.js');
-const { token, airtable_API } = require('./config.json');
+const { token } = require('./config.json');
 const fs = require('fs');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS]});
+
+module.exports = {
+	client
+}
 
 client.commands = new Collection();
 
@@ -26,12 +30,13 @@ client.on('interactionCreate', async interaction => {
 
 		try {
 
-			await command.execute(interaction);
+			interaction.deferReply({ephemeral:true});
+			await command.execute(interaction, client);
 
 		} catch (error) {
 
 			console.error(error);
-			interaction.reply({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
+			interaction.channel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
 
 		};
 
@@ -40,6 +45,4 @@ client.on('interactionCreate', async interaction => {
 })
 
 
-
 client.login(token);
-
