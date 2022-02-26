@@ -26,7 +26,7 @@ module.exports = {
 
 				console.log(IDs)
 				const IDJSON = JSON.stringify(IDs);
-				interaction.editReply({content: `${IDJSON}`});
+				interaction.editReply({content: `Updated!`});
 				fs.writeFileSync('../ids.json', `{"idFromJson": ${IDJSON}}`, "utf-8");
 
 		}, function done(err) {
