@@ -30,7 +30,7 @@ client.on('interactionCreate', async interaction => {
 
 		try {
 
-			interaction.deferReply({ephemeral:true});
+			await interaction.deferReply({ephemeral:true});
 			await command.execute(interaction, client);
 
 		} catch (error) {
