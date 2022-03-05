@@ -48,7 +48,7 @@ module.exports = {
 
 			if (confType === '1') {
 
-				embed.setAuthor({name: `Anon#0000`, iconURL: `https://i.imgur.com/9CzJbMf.png`});
+				embed.setAuthor({name: `Anon#0000`, iconURL: `${client.user.avatarURL()}`});
 				confessChannel.send({embeds: [embed]}).then(msg => newConfession(msg));
 				return interaction.editReply({content: `Your message has been sent! Please open a ticket in <#812700884256686110> if there are any issues!\n
 											We hope that this helps you in feeling better!`})

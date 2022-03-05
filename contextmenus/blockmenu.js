@@ -7,8 +7,8 @@ module.exports = {
         .setType(3),
 	async execute(interaction) {
 
-		if (!interaction.member._roles.includes('945696392817569833')) {
-            staffRole = await interaction.guild.roles.fetch('945696392817569833');
+		if (!interaction.member._roles.includes('826961128642969630')) {
+            staffRole = interaction.guild.roles.fetch('826961128642969630');
             return interaction.editReply({content: `Sorry, but this command is reserved for ${staffRole} only.`})
         }
 		
