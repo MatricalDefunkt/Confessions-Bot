@@ -1,6 +1,7 @@
 const { Client, Intents, Collection } = require('discord.js');
-const { token } = require('./config.json');
+const { token, errGuildId, errChannelId } = require('./config.json');
 const fs = require('fs');
+
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const contextFiles = fs.readdirSync('./contextmenus').filter(file => file.endsWith('.js'));
@@ -31,9 +32,25 @@ for (const file of contextFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
+	const members = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)
+	client.user.setPresence({status: `online`});
+	client.user.setActivity({name: `/confess for ${members} users!`, type:3})
 });
 
+let errGuild
+let errChannel
+
+const getErrChannel = async (errGuild, errChannel) => { 
+
+	errGuild = await client.guilds.fetch(`${errGuildId}`)
+	errChannel = await errGuild.channels.fetch(`${errChannelId}`)
+	return errChannel, errGuild;
+
+}
+
 client.on('interactionCreate', async interaction => {
+
+	getErrChannel(errGuild, errChannel);
 
 	if (interaction.isCommand()) {
 
@@ -48,7 +65,7 @@ client.on('interactionCreate', async interaction => {
 		} catch (error) {
 
 			console.error(error);
-			interaction.channel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
+			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
 
 		};
 
@@ -65,7 +82,7 @@ client.on('interactionCreate', async interaction => {
 		} catch (error) {
 
 			console.error(error);
-			interaction.channel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
+			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
 			
 		};
     }
@@ -82,7 +99,7 @@ client.on('interactionCreate', async interaction => {
 		} catch (error) {
 
 			console.error(error);
-			interaction.channel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
+			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
 
 		};
 
@@ -116,8 +133,5 @@ client.on('messageCreate', async (msg) => {
 	}
 
 })
-
-
-
 
 client.login(token);
