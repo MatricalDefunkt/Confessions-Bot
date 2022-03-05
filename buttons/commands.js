@@ -28,7 +28,7 @@ module.exports = {
         commandEmbed.setAuthor({name: `${interaction.user.tag}`, iconURL:`${interaction.user.avatarURL()}`});
         commandEmbed.setDescription(
         `
-        
+
         Commands: 
         1) Help =>
         The command which you just ran to get this message!
@@ -36,9 +36,7 @@ module.exports = {
         2) Confess =>
         This command allows you to use the main function of this bot, confessions.
         If you type /confess, you will see two options, namely "type", and "confession".
-        Under "type", there are two choices, where Anonymous means that in your confession,
-        no information related to you will be stored, and signed, where your tag and avatar
-        appears on the message "Confess" is where you will actually type out your confession.
+        Under "type", there are two choices, where Anonymous means that in your confession, no information related to you will be stored, and signed, where your tag and avatar appears on the message "Confess" is where you will actually type out your confession.
 
         `);
 

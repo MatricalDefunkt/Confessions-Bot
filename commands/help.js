@@ -29,8 +29,7 @@ module.exports = {
         helpEmbed.setAuthor({name: `${interaction.user.tag}`, iconURL:`${interaction.user.avatarURL()}`})
         helpEmbed.setDescription(`
         Hey there! Looks like you asked for some help! Well, glad you did so.
-        Here is some information that might help you. As always, if this does
-        not suffice, you can always open a ticket in <#812700884256686110>.
+        Here is some information that might help you. As always, if this does not suffice, you can always open a ticket in <#812700884256686110>.
 
         To get help about the slash commands, click on "Commands", and for help with privacy, click on "Privacy"
         `)
