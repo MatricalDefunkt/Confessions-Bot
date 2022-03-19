@@ -7,13 +7,13 @@
     "discord.js": "^13.6.0",
     "install": "^0.13.0"
   },
-  "name": "bot01",
+  "name": "Confessions Bot",
   "version": "1.0.0",
-  "description": "Kuch bhi daal de",
+  "description": "Helps people confess",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Amit Sharma",
+  "author": "Matrical Defunkt",
   "license": "ISC"
 }
