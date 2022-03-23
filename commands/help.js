@@ -3,7 +3,7 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('help')
+		.setName('confesshelp')
 		.setDescription(`Provides some description about the bot, its features and commands.`),
 	async execute(interaction, client) {
 

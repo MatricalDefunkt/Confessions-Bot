@@ -30,7 +30,7 @@ module.exports = {
         `
 
         Commands: 
-        1) Help =>
+        1) ConfessHelp =>
         The command which you just ran to get this message!
         
         2) Confess =>

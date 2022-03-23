@@ -39,12 +39,13 @@ module.exports = {
 			
 			const confType = interaction.options.getString('type');
 			const confession = interaction.options.getString('confession');
-			const icon = interaction.user.displayAvatarURL({dynamic: true})
+			const icon = interaction.user.displayAvatarURL({dynamic: true});
 
 			let embed = new MessageEmbed()
-						.setColor('RANDOM')
-						.setDescription(`Confession: \n\n ${confession}`)
-						.setTimestamp();
+				.setColor('RANDOM')
+				.setDescription(`\n\n${confession}\n`)
+				.setTimestamp()
+				.setTitle('Confession:');
 
 			if (confType === '1') {
 

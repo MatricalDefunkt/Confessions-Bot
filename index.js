@@ -32,21 +32,21 @@ for (const file of contextFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
-	const members = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)
+	const members = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
 	client.user.setPresence({status: `online`});
-	client.user.setActivity({name: `/confess for ${members} users!`, type:3})
+	client.user.setActivity({name: `/confess for ${members} users!`, type:3});
 });
 
-let errGuild
-let errChannel
+let errGuild;
+let errChannel;
 
 const getErrChannel = async (errGuild, errChannel) => { 
 
-	errGuild = await client.guilds.fetch(`${errGuildId}`)
-	errChannel = await errGuild.channels.fetch(`${errChannelId}`)
+	errGuild = await client.guilds.fetch(`${errGuildId}`);
+	errChannel = await errGuild.channels.fetch(`${errChannelId}`);
 	return errChannel, errGuild;
 
-}
+};
 
 client.on('interactionCreate', async interaction => {
 
@@ -65,9 +65,9 @@ client.on('interactionCreate', async interaction => {
 		} catch (error) {
 
 			console.error(error);
-			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
+			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``});
 
-		};
+		}
 
 	}
 
@@ -82,9 +82,9 @@ client.on('interactionCreate', async interaction => {
 		} catch (error) {
 
 			console.error(error);
-			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
+			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``});
 			
-		};
+		}
     }
 
 	if (interaction.isButton()) {
@@ -99,9 +99,9 @@ client.on('interactionCreate', async interaction => {
 		} catch (error) {
 
 			console.error(error);
-			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``})
+			errChannel.send({content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\``});
 
-		};
+		}
 
 	}
 
@@ -112,26 +112,33 @@ client.on('messageCreate', async (msg) => {
 	if (msg.author.bot) return;
 	if (msg.content.startsWith('!evaltest')) {
 
-		if (msg.author.id != 714473790939332679n) return msg.reply({content: 'Sorry, but this is an owner-only command'})
+		if (msg.author.id != 714473790939332679n) return msg.reply({content: 'Sorry, but this is an owner-only command'});
 
-		let msgContent = msg.content.substring(10)
+		let msgContent = msg.content.substring(10);
 		try {
 
-			let evalReply = eval(msgContent)
+			let evalReply = eval(msgContent);
 			if (evalReply) {
-				msg.reply({ content: `${evalReply}`})
+				msg.reply({ content: `${evalReply}`});
 			} else {
-				msg.reply({content: `Check console.`})
+				msg.reply({content: `Check console.`});
 			}
 
 		} catch (error) {
 
-			console.error(error)
-			msg.reply({content: `There was an error: \n${error}\n${error.stack}`})
+			console.error(error);
+			msg.reply({content: `There was an error: \n${error}\n${error.stack}`});
 
 		}
 	}
 
-})
+});
 
 client.login(token);
+
+setInterval(() => {
+	console.log('Ready!');
+	const members = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+	client.user.setPresence({status: `online`});
+	client.user.setActivity({name: `/confess for ${members} users!`, type:3});
+}, 3600000);
