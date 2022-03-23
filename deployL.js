@@ -7,8 +7,6 @@ const { clientId } = require(`./config.json`)
 
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-const contextMenus = [];
 const contextFiles = fs.readdirSync('./contextmenus').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {

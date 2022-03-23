@@ -38,6 +38,10 @@ module.exports = {
         If you type /confess, you will see two options, namely "type", and "confession".
         Under "type", there are two choices, where Anonymous means that in your confession, no information related to you will be stored, and signed, where your tag and avatar appears on the message "Confess" is where you will actually type out your confession.
 
+        3) ConfessReply =>
+        This command enables you to reply to messages sent in the confession channel.
+        Once you type /confessreply, you will see three options. The first one is the same as in /confess. The second one is the text you want to send as the reply, and the third one is the link to, or the message ID of the message you want to reply to.
+
         `);
 
 
