@@ -1,5 +1,6 @@
 const { ContextMenuCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { staffRoleId } = require('../config.json');
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
@@ -7,8 +8,8 @@ module.exports = {
         .setType(3),
 	async execute(interaction) {
 
-		if (!interaction.member._roles.includes('826961128642969630')) {
-            staffRole = await interaction.guild.roles.fetch('826961128642969630');
+		if (!interaction.member._roles.includes(`${staffRoleId}`)) {
+            staffRole = await interaction.guild.roles.fetch(`${staffRoleId}`);
             return interaction.editReply({content: `Sorry, but this command is reserved for ${staffRole} only.`})
         }
 		
