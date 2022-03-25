@@ -2,8 +2,9 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const { confessId } = require('../config.json');
 const { airtable_API } = require('../config.json');
+const { airtableBase } = require('../config.json');
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: `${airtable_API}`}).base('appZ1npMgruWsfhgi');
+var base = new Airtable({apiKey: `${airtable_API}`}).base(airtableBase);
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -39,12 +40,13 @@ module.exports = {
 			
 			const confType = interaction.options.getString('type');
 			const confession = interaction.options.getString('confession');
-			const icon = interaction.user.displayAvatarURL({dynamic: true})
+			const icon = interaction.user.displayAvatarURL({dynamic: true});
 
 			let embed = new MessageEmbed()
-						.setColor('RANDOM')
-						.setDescription(`Confession: \n\n ${confession}`)
-						.setTimestamp();
+				.setColor('RANDOM')
+				.setDescription(`\n\n${confession}\n`)
+				.setTimestamp()
+				.setTitle('Confession:');
 
 			if (confType === '1') {
 

@@ -1,0 +1,26 @@
+if (interaction.commandName = 'modal') {await runModalCommand(interaction, client); return}
+
+client.on('modalSubmit', async (modal) => {
+
+	if(modal.customId === 'send') {
+		const firstResponse = modal.fields[0].value
+		await modal.deferReply({ ephemeral: true })
+		await confess(modal, client)
+	}  
+
+})
+
+const runModalCommand = async function (interaction, client) {
+
+	const command = client.commands.get('modal');
+	try {
+		command.execute(interaction, client);
+		return;
+	} catch (error) {
+		const errGuild = client.guilds.cache.get(`${errGuildId}`);
+		const errChannel = errGuild.channels.cache.get(`${errChannelId}`);
+		console.error(error); errChannel.send({ content: `An error was caught: \n\`\`\`js\n${error.stack}\`\`\`` });
+		return;
+	}
+
+}

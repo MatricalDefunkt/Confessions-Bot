@@ -1,6 +1,7 @@
 const { airtable_API } = require('../config.json');
+const { airtableBase } = require('../config.json');
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: `${airtable_API}`}).base('appZ1npMgruWsfhgi');
+var base = new Airtable({apiKey: `${airtable_API}`}).base(airtableBase);
 
 module.exports = {
     customId: 'yes',
@@ -11,8 +12,8 @@ module.exports = {
         url = interaction.message.embeds[0].url
         msg = await interaction.channel.messages.fetch(`${url.substring(67)}`)
         if (msg.embeds.length === 0) return interaction.update({content: '```diff\n- The selected message is not a confession!```', embeds:[], components: []});
-        desc = msg.embeds[0].description
-        if (desc.startsWith('Confession:')) {
+        desc = msg.embeds[0].title
+        if (desc.startsWith('Confession:')||desc.startsWith('Reply:')) {
 
             await interaction.update({content: '```diff\n- Blocking...```', embeds:[], components:[]})
 
