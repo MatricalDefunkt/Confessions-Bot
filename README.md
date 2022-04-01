@@ -59,8 +59,8 @@ Now, in the terminal, paste the following command
 npm i discord.js
 npm i airtable
 npm i discord-api-types
-npm i discordjs/rest
-npm i discordjs/builders
+npm i @discordjs/rest
+npm i @discordjs/builders
 ```
 
 <h3 align="center">Create a config.JSON</h3>
