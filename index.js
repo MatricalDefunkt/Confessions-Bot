@@ -110,9 +110,9 @@ client.on('interactionCreate', async interaction => {
 client.on('messageCreate', async (msg) => {
 
 	if (msg.author.bot) return;
-	if (msg.content.startsWith('!evaltest')) {
+	if (msg.content.startsWith('!eval')) {
 
-		if (msg.author.id != 714473790939332679n) return msg.reply({content: 'Sorry, but this is an owner-only command'});
+		if (msg.author.id != client.application.owner.id) return;
 
 		let msgContent = msg.content.substring(10);
 		try {
