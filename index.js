@@ -127,7 +127,7 @@ client.on('messageCreate', async (msg) => {
 		} catch (error) {
 
 			console.error(error);
-			msg.reply({content: `There was an error: \n${error}\n${error.stack}`});
+			msg.reply({content: `There was an error: \`\`\`js\n${error}\n${error.stack}\`\`\``});
 
 		}
 	}
