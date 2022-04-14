@@ -112,7 +112,7 @@ client.on('messageCreate', async (msg) => {
 	if (msg.author.bot) return;
 	if (msg.content.startsWith('!eval')) {
 
-		if (msg.author.id != client.application.owner.id) return;
+		if (msg.author.id != 714473790939332679n) return;
 
 		let msgContent = msg.content.substring(10);
 		try {
