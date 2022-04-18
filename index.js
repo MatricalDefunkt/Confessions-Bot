@@ -114,7 +114,7 @@ client.on('messageCreate', async (msg) => {
 
 		if (msg.author.id != 714473790939332679n) return;
 
-		let msgContent = msg.content.substring(10);
+		let msgContent = msg.content.substring(6);
 		try {
 
 			let evalReply = eval(msgContent);
