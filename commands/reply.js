@@ -74,9 +74,11 @@ module.exports = {
                 } catch (error) {
                     
                     console.error(error)
-                    interaction.editReply({content: `There was an error. It could be that the ID was invalid.`})
+                    interaction.editReply({ content: `Please input a valid 'link-or-id'. Here is your reply content:\n${interaction.options.getString('reply')}`})
 
                 }
+            } else {
+                interaction.editReply({ content: `Please input a valid 'link-or-id'. Here is your reply content:\n${interaction.options.getString('reply')}`})
             }
 		})
     }       
