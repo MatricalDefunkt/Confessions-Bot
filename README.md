@@ -87,6 +87,11 @@ node deployl.js
 node ./database/database
 ```
 
+Your explorer should look something like this:
+
+![ConfessionsBotTutorial3 1](https://user-images.githubusercontent.com/97472770/172024086-07b6d794-5325-4809-a599-9d8b42098fbd.png)
+![ConfessionsBotTutorial3 2](https://user-images.githubusercontent.com/97472770/172024088-95f80814-35cc-46e1-b977-f776542af60d.png)
+
 <h3 align="center">Running the Bot</h3>
 
 Lastly, (this is where you run the bot), type `node .` into the shell. If everything is okay, you should see `Ready!` there. 
