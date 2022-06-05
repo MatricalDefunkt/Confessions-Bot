@@ -78,8 +78,7 @@ module.exports = {
 						embed.setAuthor( { name: `Anon#0000`, iconURL: `${ client.user.displayAvatarURL() }` } );
 						confessChannel.send( { embeds: [ embed ] } ).then( msg => newConfession( msg ) );
 						return collected.update( {
-							content: `Your message has been sent! Please open a ticket in <#812700884256686110> if there are any issues!\n
-															We hope that this helps you in feeling better!`, embeds: [], components: []
+							content: `Your message has been sent! Please open a ticket in <#812700884256686110> if there are any issues!\nWe hope that this helps you in feeling better!`, embeds: [], components: []
 						} )
 
 					} else if ( confType === '2' )
@@ -88,8 +87,7 @@ module.exports = {
 						embed.setAuthor( { name: `${ interaction.user.tag }`, iconURL: `${ icon }` } ).setFooter( { text: `Please note that even though this confession was not anonymous, it does not allow anyone to send nasty stuff to ${ interaction.user.username }. Read rule#2.` } );
 						confessChannel.send( { embeds: [ embed ] } ).then( msg => newConfession( msg ) );;
 						return collected.update( {
-							content: `Your confession has been sent! Please open a ticket in <#812700884256686110> if there are any issues.\n
-															We hope that this helps you in feeling better!`, embeds: [], components: []
+							content: `Your confession has been sent! Please open a ticket in <#812700884256686110> if there are any issues.\nWe hope that this helps you in feeling better!`, embeds: [], components: []
 						} );
 					}
 				} else
