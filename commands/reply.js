@@ -62,7 +62,7 @@ module.exports = {
             if ( link.length !== 85 || replyId.length !== 18 ) return interaction.editReply( { content: `Please check the link or ID you have provided. Here is your reply for your reference:\n----------------\n${ replyText }` } )
 
             confessChannel.messages.fetch( replyId, { force: false, cache: true } )
-                .then( confession =>
+                .then( async confession =>
                 {
                     if ( confession.embeds.length < 0 || ( confession.embeds[ 0 ]?.title !== "Reply:" && confession.embeds[ 0 ]?.title !== "Confession:" ) || confession.author?.id !== client.user.id || !confession ) return interaction.editReply( {
                         content: `Please make sure that the link or ID you have provided is of a confession or a confession- reply.Here is your reply for your reference: \n----------------\n${ replyText } `
@@ -134,7 +134,7 @@ module.exports = {
                         interaction.editReply( { content: `You did not click the buttons in time. If you wish to try again, here is your reply:\n----------------\n${ replyText }`, embeds: [], components: [] } )
                     } )
                 } )
-                .catch( error =>
+                .catch( async error =>
                 {
                     if ( error.code = 10008 ) return interaction.editReply( {
                         content: `Please make sure that the link or ID you have provided is of a confession or a confession-reply. Here is your reply for your reference:\n----------------\n${ replyText })`
