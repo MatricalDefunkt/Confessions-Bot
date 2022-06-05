@@ -61,83 +61,94 @@ module.exports = {
 
             if ( link.length !== 85 || replyId.length !== 18 ) return interaction.editReply( { content: `Please check the link or ID you have provided. Here is your reply for your reference:\n----------------\n${ replyText }` } )
 
-            const confession = await confessChannel.messages.fetch( replyId, { force: false, cache: true } )
-
-            if ( confession.embeds.length < 0 || ( confession.embeds[ 0 ]?.title !== "Reply:" && confession.embeds[ 0 ]?.title !== "Confession:" ) || confession.author?.id !== client.user.id || !confession ) return interaction.editReply( {
-                content: `Please make sure that the link or ID you have provided is of a confession or a confession-reply. Here is your reply for your reference:\n----------------\n${ replyText }`
-            } )
-
-            const embed = new MessageEmbed()
-                .setColor( 'RANDOM' )
-                .setDescription( `\n\n${ replyText }\n` )
-                .setTimestamp()
-                .setTitle( 'Reply:' );
-
-            const row = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setCustomId( 'sendconfirm' )
-                        .setEmoji( '✅' )
-                        .setStyle( 'SUCCESS' )
-                        .setLabel( 'Send' ),
-                    new MessageButton()
-                        .setCustomId( 'sendcancel' )
-                        .setEmoji( '❎' )
-                        .setStyle( 'PRIMARY' )
-                        .setLabel( 'Cancel' )
-                )
-
-            const filter = ( button ) => button.user.id === interaction.user.id
-            const reply = await interaction.editReply( { content: `You are about to reply to [this message](${ link }). Send it? You have 60 seconds to decide.`, embeds: [ embed ], components: [ row ] } )
-            reply.awaitMessageComponent( {
-                filter,
-                time: 60000,
-                componentType: 'BUTTON'
-            } ).then( async ( collected ) =>
-            {
-                const confType = interaction.options.getString( "type", true )
-                if ( collected.customId === 'sendconfirm' )
+            confessChannel.messages.fetch( replyId, { force: false, cache: true } )
+                .then( confession =>
                 {
-                    try
-                    {
-                        if ( !confession ) return interaction.editReply( { content: `Please check the message link or ID you have provided.` } )
+                    if ( confession.embeds.length < 0 || ( confession.embeds[ 0 ]?.title !== "Reply:" && confession.embeds[ 0 ]?.title !== "Confession:" ) || confession.author?.id !== client.user.id || !confession ) return interaction.editReply( {
+                        content: `Please make sure that the link or ID you have provided is of a confession or a confession- reply.Here is your reply for your reference: \n----------------\n${ replyText } `
+                    } )
 
-                        if ( confType === '1' )
+                    const embed = new MessageEmbed()
+                        .setColor( 'RANDOM' )
+                        .setDescription( `\n\n${ replyText } \n` )
+                        .setTimestamp()
+                        .setTitle( 'Reply:' );
+
+                    const row = new MessageActionRow()
+                        .addComponents(
+                            new MessageButton()
+                                .setCustomId( 'sendconfirm' )
+                                .setEmoji( '✅' )
+                                .setStyle( 'SUCCESS' )
+                                .setLabel( 'Send' ),
+                            new MessageButton()
+                                .setCustomId( 'sendcancel' )
+                                .setEmoji( '❎' )
+                                .setStyle( 'PRIMARY' )
+                                .setLabel( 'Cancel' )
+                        )
+
+                    const filter = ( button ) => button.user.id === interaction.user.id
+                    const reply = await interaction.editReply( { content: `You are about to reply to[ this message]( ${ link }).Send it?You have 60 seconds to decide.`, embeds: [ embed ], components: [ row ] } )
+                    reply.awaitMessageComponent( {
+                        filter,
+                        time: 60000,
+                        componentType: 'BUTTON'
+                    } ).then( async ( collected ) =>
+                    {
+                        const confType = interaction.options.getString( "type", true )
+                        if ( collected.customId === 'sendconfirm' )
                         {
-                            embed.setAuthor( { name: `Anon#0000`, iconURL: `${ client.user.avatarURL() }` } );
-                            confession.reply( { embeds: [ embed ] } ).then( msg => newReply( msg ) );
-                            return collected.update( {
-                                content: `Your reply has been sent! Please open a ticket in <#812700884256686110> if there are any issues!\n
-													    We hope that this helps you in feeling better!`, embeds: [], components: []
-                            } )
-                        } else if ( confType === '2' )
+                            try
+                            {
+                                if ( !confession ) return interaction.editReply( { content: `Please check the message link or ID you have provided.` } )
+
+                                if ( confType === '1' )
+                                {
+                                    embed.setAuthor( { name: `Anon#0000`, iconURL: `${ client.user.avatarURL() } ` } );
+                                    confession.reply( { embeds: [ embed ] } ).then( msg => newReply( msg ) );
+                                    return collected.update( {
+                                        content:
+                                            `Your reply has been sent! Please open a ticket in <#812700884256686110> if there are any issues!\nWe hope that this helps you in feeling better!`, embeds: [], components: []
+                                    } )
+                                } else if ( confType === '2' )
+                                {
+                                    embed.setAuthor( { name: `${ interaction.user.tag }`, iconURL: `${ interaction.user.displayAvatarURL( { dynamic: true } ) }` } ).setFooter( { text: `Please note that even though this reply was not anonymous, it does not allow anyone to send nasty stuff to ${ interaction.user.username }. Read rule#2.` } );
+                                    confession.reply( { embeds: [ embed ] } ).then( msg => newReply( msg ) );
+                                    return collected.update( {
+                                        content: `Your reply has been sent! Please open a ticket in <#812700884256686110> if there are any issues.\nWe hope that this helps you in feeling better!`, embeds: [], components: []
+                                    } );
+                                }
+                            } catch ( error )
+                            {
+                                if ( error.code === 10008 ) return collected.update( { content: `The message is not from the confessions channel.`, embeds: [], components: [] } )
+                                else console.error( error )
+                            }
+                        } else
                         {
-                            embed.setAuthor( { name: `${ interaction.user.tag }`, iconURL: `${ interaction.user.displayAvatarURL( { dynamic: true } ) }` } ).setFooter( { text: `Please note that even though this reply was not anonymous, it does not allow anyone to send nasty stuff to ${ interaction.user.username }. Read rule#2.` } );
-                            confession.reply( { embeds: [ embed ] } ).then( msg => newReply( msg ) );
-                            return collected.update( {
-                                content: `Your reply has been sent! Please open a ticket in <#812700884256686110> if there are any issues.\n
-													    We hope that this helps you in feeling better!`, embeds: [], components: []
-                            } );
+                            return collected.update( { content: `The reply was not sent. For your reference, here is your reply:\n----------------\n${ replyText }`, embeds: [], components: [] } )
                         }
-                    } catch ( error )
+                    } ).catch( async ( err ) =>
                     {
-                        if ( error.code === 10008 ) return collected.update( { content: `The message is not from the confessions channel.`, embeds: [], components: [] } )
-                        else console.error( error )
-                    }
-                } else
+                        console.error( err )
+                        interaction.editReply( { content: `You did not click the buttons in time. If you wish to try again, here is your reply:\n----------------\n${ replyText }`, embeds: [], components: [] } )
+                    } )
+                } )
+                .catch( error =>
                 {
-                    return collected.update( { content: `The reply was not sent. For your reference, here is your reply:\n----------------\n${ replyText }`, embeds: [], components: [] } )
-                }
-            } ).catch( async ( err ) =>
-            {
-                console.error( err )
-                interaction.editReply( { content: `You did not click the buttons in time. If you wish to try again, here is your reply:\n----------------\n${ replyText }`, embeds: [], components: [] } )
-            } )
-
+                    if ( error.code = 10008 ) return interaction.editReply( {
+                        content: `Please make sure that the link or ID you have provided is of a confession or a confession-reply. Here is your reply for your reference:\n----------------\n${ replyText })`
+                    } )
+                    else
+                    {
+                        console.log( error )
+                        return interaction.editReply( { content: `There was an error. Please contact Matrical ASAP.` } )
+                    }
+                } )
             /**
-             * 
-             * @param {Message} msg 
-             */
+             *
+             * @param {Message} msg
+                    */
             async function newReply ( msg )
             {
                 Confessions.create( {
