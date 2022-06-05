@@ -61,6 +61,12 @@ module.exports = {
 
             if ( link.length !== 85 || replyId.length !== 18 ) return interaction.editReply( { content: `Please check the link or ID you have provided. Here is your reply for your reference:\n----------------\n${ replyText }` } )
 
+            const confession = await confessChannel.messages.fetch( replyId, { force: false, cache: true } )
+
+            if ( confession.embeds.length < 0 || ( confession.embeds[ 0 ]?.title !== "Reply:" && confession.embeds[ 0 ]?.title !== "Confession:" ) || confession.author?.id !== client.user.id || !confession ) return interaction.editReply( {
+                content: `Please make sure that the link or ID you have provided is of a confession or a confession-reply. Here is your reply for your reference:\n----------------\n${ replyText }`
+            } )
+
             const embed = new MessageEmbed()
                 .setColor( 'RANDOM' )
                 .setDescription( `\n\n${ replyText }\n` )
@@ -94,7 +100,6 @@ module.exports = {
                 {
                     try
                     {
-                        const confession = await confessChannel.messages.fetch( replyId, { force: false, cache: true } )
                         if ( !confession ) return interaction.editReply( { content: `Please check the message link or ID you have provided.` } )
 
                         if ( confType === '1' )
