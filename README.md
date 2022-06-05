@@ -25,13 +25,7 @@ Now, go to `View` (Top-Left). Click on it, and click on `Terminal`, or if you ar
 Now, in the console/terminal, paste the following command, and press enter
 
 ```shell
-npm i discord.js
-npm i airtable
-npm i discord-api-types
-npm i @discordjs/rest
-npm i @discordjs/builders
-npm i sequelize
-npm i sqlite3
+npm install
 ```
 
 <h3 align="center">Create a config.JSON</h3>
