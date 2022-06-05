@@ -36,7 +36,8 @@ module.exports = {
         const confessChannel = await client.channels.fetch( confessId, { force: false, cache: true } )
         if ( !confessChannel.isText() ) return
 
-        const blockedUser = await BlockLogs.findOne( { where: { usrID: interaction.user.id } } );
+        const blocks = await BlockLogs.findAll( { where: { usrID: interaction.user.id } } );
+        const blockedUser = blocks[ blocks.length - 1 ]
         const action = blockedUser?.getDataValue( "action" );
 
         const replyText = interaction.options.getString( "reply", true )
