@@ -7,11 +7,13 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName( 'unblock' )
     .setDescription( `Unblocks a user.` )
-    .addStringOption( o => o
+    .addUserOption( o => o
       .setName( "user-id" )
       .setDescription( "User ID of the confessee you wish to unblock." )
       .setRequired( true )
-    ),
+    )
+    .addStringOption( o => o
+      .setName( "reason" ).setDescription( "The reason for unblocking." ).setRequired( true ) ),
   /**
    * 
    * @param {CommandInteraction} interaction 
@@ -27,15 +29,19 @@ module.exports = {
       return interaction.editReply( { content: `This command is reserved for ${ staffRole } only.` } )
     }
 
-    const usrID = interaction.options.getString( "user-id", true )
+    const usrID = interaction.options.getUser( "user-id", true ).id
     if ( usrID.length !== 18 ) return interaction.editReply( { content: `Please enter a vaild user ID.` } )
-    const blockLog = await BlockLogs.findOne( { where: { usrID } } )
+    const blockLogs = await BlockLogs.findAll( { where: { usrID } } )
 
-    if ( !blockLog ) return interaction.editReply( { content: `There is no block record for \`${ usrID }\`` } )
+    const reason = interaction.options.getString()
 
-    if ( blockLog.getDataValue( "action" ) === "unblock" ) return interaction.editReply( { content: `The user was blocked previously, but is now unblocked.\nThey were blocked on <t:${ Date.parse( blockLog.getDataValue( "createdAt" ) ) / 1000 }:F>` } )
+    if ( blockLogs.length < 1 || !blockLogs ) return interaction.editReply( { content: `There is no block record for \`${ usrID }\`` } )
 
-    if ( blockLog.getDataValue( "action" ) === "block" )
+    const latestBlock = blockLogs[ blockLogs.length - 1 ]
+
+    if ( latestBlock.action === "unblock" ) return interaction.editReply( { content: `The user was not blocked previously.\nThey were unblocked on <t:${ Date.parse( latestBlock.getDataValue( "createdAt" ) ) / 1000 }:F>` } )
+
+    if ( latestBlock.action === "block" )
     {
       const row = new MessageActionRow().addComponents(
         new MessageButton()
@@ -55,6 +61,8 @@ module.exports = {
           .setAuthor( { name: `${ interaction.user.tag }`, iconURL: `${ interaction.user.displayAvatarURL( { dynamic: true } ) }` } )
           .setTitle( `Unblock Request` )
           .setDescription( `<@${ usrID }> is about to be unblocked. Proceed? You have 5 minuted to decide.` )
+          .addField( "Reason For Previous Block:", latestBlock.reason )
+          .addField( "Moderator For Previous Block:", `<@${ latestBlock.modID }>` )
         ]
       } )
       reply.awaitMessageComponent( { componentType: "BUTTON", time: 300_000 } )
@@ -64,7 +72,7 @@ module.exports = {
 
           if ( button.customId === "yes" )
           {
-            await BlockLogs.create( { usrID, action: "unblock", modID: interaction.user.id } )
+            await BlockLogs.create( { usrID, action: "unblock", modID: interaction.user.id, reason } )
             await button.editReply( { content: `<@${ usrID }> has been unblocked.`, embeds: [], components: [] } )
           } else
           {
