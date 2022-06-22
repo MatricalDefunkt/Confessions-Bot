@@ -137,7 +137,7 @@ module.exports = {
                 .catch( async error =>
                 {
                     if ( error.code = 10008 ) return interaction.editReply( {
-                        content: `Please make sure that the link or ID you have provided is of a confession or a confession-reply. Here is your reply for your reference:\n----------------\n${ replyText })`
+                        content: `Please make sure that the link or ID you have provided is of a confession or a confession-reply. Here is your reply for your reference:\n----------------\n${ replyText }`
                     } )
                     else
                     {
