@@ -8,7 +8,17 @@ const sequelize = new Sequelize( "database", "user", "pass", {
   storage: "ConfessionsBot.sqlite",
 } );
 
-class Confessions extends Model { };
+class Confessions extends Model
+{
+  get msgID ()
+  {
+    return this.getDataValue( "msgID" )
+  }
+  get usrID ()
+  {
+    return this.getDataValue( "usrID" )
+  }
+};
 
 Confessions.init( {
   msgID: { type: DataTypes.STRING( 18 ), primaryKey: true },
@@ -18,12 +28,31 @@ Confessions.init( {
   modelName: "confessions"
 } )
 
-class BlockLogs extends Model { };
+class BlockLogs extends Model
+{
+  get modID ()
+  {
+    return this.getDataValue( "modID" )
+  }
+  get usrID ()
+  {
+    return this.getDataValue( "usrID" )
+  }
+  get action ()
+  {
+    return this.getDataValue( "action" )
+  }
+  get reason ()
+  {
+    return this.getDataValue( "reason" )
+  }
+};
 
 BlockLogs.init( {
   usrID: { type: DataTypes.STRING( 18 ) },
   action: DataTypes.STRING( 255 ),
-  modID: DataTypes.STRING( 18 )
+  modID: DataTypes.STRING( 18 ),
+  reason: DataTypes.STRING( 512 )
 }, {
   sequelize,
   modelName: "blockLogs"
