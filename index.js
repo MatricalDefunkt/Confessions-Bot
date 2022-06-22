@@ -7,7 +7,7 @@ const commandFiles = fs.readdirSync( './commands' ).filter( file => file.endsWit
 const contextFiles = fs.readdirSync( './contextmenus' ).filter( file => file.endsWith( '.js' ) );
 const buttonFiles = fs.readdirSync( './buttons' ).filter( file => file.endsWith( '.js' ) );
 
-const client = new Client( { intents: [ Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ] } );
+const client = new Client( { intents: [ Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ], failIfNotExists: false, } );
 
 client.commands = new Collection();
 
