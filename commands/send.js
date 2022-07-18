@@ -62,7 +62,7 @@ module.exports = {
 				)
 
 			const filter = ( button ) => button.user.id === interaction.user.id
-			const reply = await interaction.editReply( { content: `You are about to send this confession. Send it? You have 60 seconds to decide.`, embeds: [ embed ], components: [ row ] } )
+			const reply = await interaction.editReply( { content: `You are about to send this confession, ${ confType === "1" ? `**anonymously**` : `**with your signature**` }. Send it? You have 60 seconds to decide.`, embeds: [ embed ], components: [ row ] } )
 			reply.awaitMessageComponent( {
 				filter,
 				time: 60000,
