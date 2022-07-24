@@ -5,7 +5,7 @@ const { BlockLogs, Confessions } = require( '../database/database' );
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
-		.setName( 'block' )
+		.setName( 'Block' )
 		.setType( 3 ),
 	/**
 	 * 
