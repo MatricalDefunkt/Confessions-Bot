@@ -11,8 +11,8 @@ class Logger
   {
     if ( data instanceof Buffer )
     {
-      console.log( data.toString() );
-    } else console.log( data );
+      console.log( data.toString().trim() );
+    } else console.log( data.trim() );
     Logger.#_appendLog( data, "primary" );
   }
   /**
@@ -23,8 +23,8 @@ class Logger
   {
     if ( error instanceof Buffer )
     {
-      console.error( error.toString() );
-    } else console.trace( error );
+      console.trace( error.toString().trim() );
+    } else console.trace( error.trim() );
     Logger.#_appendLog( error, "error" );
   }
   static #_appendLog ( data, type )
