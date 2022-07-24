@@ -33,7 +33,7 @@ module.exports = {
   async execute ( interaction, client )
   {
 
-    if ( interaction.guild.members.cache.size < 150 ) return await interaction.editReply( { content: `Sorry but this command cannot be used for servers under 150 members.` } )
+    if ( interaction.guild.memberCount < 150 ) return await interaction.editReply( { content: `Sorry but this command cannot be used for servers under 150 members.` } )
 
     if ( !interaction.member.roles.resolve( staffRoleId ) )
     {
