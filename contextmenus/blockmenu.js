@@ -14,7 +14,9 @@ module.exports = {
 	 */
 	async execute ( interaction )
 	{
-		const message = await interaction.channel.messages.fetch( `${ interaction.targetId }`, { force: false, cache: true } );
+		const message = interaction.targetMessage
+
+		if ( !message.inGuild() ) return
 
 		if ( !interaction.inCachedGuild() ) return
 
@@ -49,8 +51,7 @@ module.exports = {
 				.setCustomId( "reason" )
 				.setLabel( "Reason for blocking." )
 				.setPlaceholder( "Under 512 characters..." )
-				.setMinLength( 16 )
-				.setMaxLength( 235 )
+				.setMaxLength( 512 )
 				.setRequired( true )
 
 		const reasonInputRow = new MessageActionRow().addComponents( reasonInputComponent )
