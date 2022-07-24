@@ -46,6 +46,10 @@ class BlockLogs extends Model
   {
     return this.getDataValue( "reason" )
   }
+  get createdAt ()
+  {
+    return this.getDataValue( "createdAt" )
+  }
 };
 
 BlockLogs.init( {
