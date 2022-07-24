@@ -35,7 +35,7 @@ module.exports = {
 
     const reason = interaction.options.getString()
 
-    if ( blockLogs.length < 1 || !blockLogs ) return interaction.editReply( { content: `There is no block record for \`${ usrID }\`` } )
+    if ( blockLogs.length < 1 || !blockLogs ) return interaction.editReply( { content: `There is no block record for <@${ usrID }>` } )
 
     const latestBlock = blockLogs[ blockLogs.length - 1 ]
 
@@ -47,7 +47,7 @@ module.exports = {
         new MessageButton()
           .setCustomId( 'yes' )
           .setEmoji( '❎' )
-          .setLabel( 'Block' )
+          .setLabel( 'Unblock' )
           .setStyle( 'PRIMARY' ),
         new MessageButton()
           .setCustomId( 'no' )
