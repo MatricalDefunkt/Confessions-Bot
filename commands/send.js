@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require( '@discordjs/builders' );
-const { MessageEmbed, CommandInteraction, Client, MessageActionRow, MessageButton, MessageComponentInteraction, CollectorFilter, Message } = require( 'discord.js' );
+const { MessageEmbed, CommandInteraction, Client, MessageActionRow, MessageButton, Message } = require( 'discord.js' );
 const { confessId } = require( '../config.json' );
 const { BlockLogs, Confessions } = require( '../database/database' );
 
