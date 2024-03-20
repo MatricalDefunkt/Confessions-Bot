@@ -5,7 +5,7 @@
 		"discord-api-types": "^0.27.3",
 		"discord.js": "^13.9.0",
 		"install": "^0.13.0",
-		"sequelize": "^6.20.1",
+		"sequelize": "^6.29.0",
 		"sqlite3": "^5.0.8"
 	},
 	"name": "confessions-bot",
